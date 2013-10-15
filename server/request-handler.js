@@ -1,5 +1,6 @@
 var url = require('url');
-var messages = [];
+var messages = [{username: 'johnny', message:'hello'}, {username: 'SG', message:'what up'}];
+var html = require('./html-engine');
 var defaultCorsHeaders = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -19,9 +20,10 @@ var handleRequest = function(request, response) {
     response.end();
   }
 
-  if(request.method === 'GET' && pathname === '/1/classes/chatterbox'){
+  if(request.method === 'GET'){//&& pathname === '/'){ //1/classes/chatterbox'){
     response.writeHead(200,headers);
-    response.end(JSON.stringify({results:messages}));
+    html.render(request,response,messages);
+    // response.end(JSON.stringify({results:messages}));
   } else if(request.method === 'GET'){
     response.writeHead(404,headers);
     response.end();
