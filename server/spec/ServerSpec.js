@@ -3,7 +3,7 @@ var handler = require("../request-handler");
 function StubRequest(url, method, postdata) {
   this.url = url;
   this.method = method;
-  this._postData = postdata;
+  this.data = JSON.stringify(postdata);
   this.setEncoding = function(type) {
     //ignore
   };
@@ -37,8 +37,8 @@ function StubResponse() {
 }
 
 describe("Node Server Request Listener Function", function() {
- it("Should answer GET requests for /classes/room", function() {
-   var req = new StubRequest("http://127.0.0.1:8080/classes/room1",
+ it("Should answer GET requests for /1/classes/chatterbox", function() {
+   var req = new StubRequest("http://127.0.0.1:8080/1/classes/chatterbox",
                              "GET");
    var res = new StubResponse();
 
@@ -49,8 +49,8 @@ describe("Node Server Request Listener Function", function() {
    expect(res._ended).toEqual(true);
  });
 
- it("Should accept posts to /classes/room", function() {
-   var req = new StubRequest("http://127.0.0.1:8080/classes/room1",
+ it("Should accept posts to /1/classes/chatterbox", function() {
+   var req = new StubRequest("http://127.0.0.1:8080/1/classes/chatterbox",
                              "POST",
                             {username: "Jono",
                              message: "Do my bidding!"});
@@ -68,7 +68,7 @@ describe("Node Server Request Listener Function", function() {
 
    // Now if we request the log for that room,
    // the message we posted should be there:
-   req = new StubRequest("http://127.0.0.1:8080/classes/room1",
+   req = new StubRequest("http://127.0.0.1:8080/1/classes/chatterbox",
                              "GET");
    res = new StubResponse();
 
