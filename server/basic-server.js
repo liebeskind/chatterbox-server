@@ -1,6 +1,6 @@
 /* Import node's http module: */
 var http = require("http");
-var HandleRequest = require('./request-handler')
+var HandleRequest = require('./request-handler');
 
 
 var requestListener = function (request, response) {

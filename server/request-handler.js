@@ -14,10 +14,14 @@ var handleRequest = function(request, response) {
   var pathname = url.parse(request.url).pathname;
   var postData = '';
 
+  if(request.method === 'OPTIONS'){
+    response.writeHead(200,headers);
+    response.end();
+  }
 
   if(request.method === 'GET' && pathname === '/1/classes/chatterbox'){
     response.writeHead(200,headers);
-    response.end(JSON.stringify(messages));
+    response.end(JSON.stringify({results:messages}));
   } else if(request.method === 'GET'){
     response.writeHead(404,headers);
     response.end();
@@ -29,21 +33,26 @@ var handleRequest = function(request, response) {
       console.log('******Recieved POST data chunk "'+postDataChunk+ '".');
     });
     request.addListener('end',function(){
-      addMessage(request,response);
+      addMessage(postData);
     });
   }
+
+  var addMessage = function(request){
+    // console.log(request);
+    data = JSON.parse(request);
+    messages.push({
+      createdAt: new Date(),
+      roomname: data.roomname,
+      username: data.username,
+      text: data.text
+    });
+    response.writeHead(201,headers);
+    response.end();
+  };
+
+
 };
 
-var addMessage = function(request,response){
-  data = JSON.parse(request.data)
-  messages.push({
-    createdAt: new Date(),
-    roomname: data.roomname,
-    username: data.username,
-    message: data.message
-  });
-  response.writeHead(201,headers);
-  response.end();
-};
 
-module.exports.handleRequest = handleRequest
+
+module.exports.handleRequest = handleRequest;
