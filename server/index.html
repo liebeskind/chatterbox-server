@@ -5,36 +5,38 @@
     <link rel="stylesheet" type="text/css" href= "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
   </head>
   <body ng-controller="chat">
-    <h1>Angular Chat</h1>
-    <form>
-      Username: <input ng-model="username">
-      Message: <input ng-model="msg">
-      <button type="button" class="btn btn-lg btn-primary" ng-click="POSTmessage()">Submit Message</button>
-    </form>
-    <div>
-      <div ng-repeat="item in items">
-        <span>{{item.username + ": "}}</span>
-        <span>{{item.message}} </span>
+    <div class="container">
+      <h1>Angular Chat</h1>
+      <form>
+        Username: <input ng-model="username">
+        Message: <input ng-model="msg">
+        <button type="button" class="btn btn-lg btn-primary" ng-click="POSTmessage()">Submit Message</button>
+      </form>
+      <div>
+        <div ng-repeat="item in items">
+          <span>{{item.username + ": "}}</span>
+          <span>{{item.message}} </span>
+        </div>
       </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-    <script>
-
-    function chat($scope,$http){
-      $scope.POSTmessage = function(){
-        var msg = {message: $scope.msg, username: $scope.username};
-        msg = JSON.stringify(msg);
-        $http.post("/chat",msg);
-      };
-
-      setInterval(function(){
-        $http.get("/chat").success(function(data,status){
-          $scope.items = data.reverse()
-        });
-      },1000);
-    }
-
-
-    </script>
   </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+      <script>
+
+      function chat($scope,$http){
+        $scope.POSTmessage = function(){
+          var msg = {message: $scope.msg, username: $scope.username};
+          msg = JSON.stringify(msg);
+          $http.post("/chat",msg);
+        };
+
+        setInterval(function(){
+          $http.get("/chat").success(function(data,status){
+            $scope.items = data.reverse()
+          });
+        },500);
+      }
+
+
+      </script>
 </html>
