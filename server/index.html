@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html ng-app>
+  <head>
+    <title>Your Shopping Cart</title>
+  </head>
+  <body ng-controller="chat">
+    <h1>Chatterbox</h1>
+    <form>
+      Message: <input ng-model="msg">
+      Username: <input ng-model="username">
+      <button ng-click="POSTmessage()">Submit Message</button>
+      <button ng-click="GETmessage()">Refresh message list</button>
+    </form>
+    <div>
+      <div ng-repeat="item in items">
+        <span>{{item.username + ": "}}</span>
+        <span>{{item.message}} </span>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script>
+
+    function chat($scope,$http){
+      $scope.POSTmessage = function(){
+        var msg = {message: $scope.msg, username: $scope.username};
+        msg = JSON.stringify(msg);
+        $http.post("http://localhost:8080/",msg);
+      };
+
+      $scope.GETmessage = function() {
+        $http.get("http://localhost:8080/").success(function(data,status){
+          $scope.items = data
+          console.log(data);
+        });
+      };
+    }
+
+
+    </script>
+  </body>
+</html>
