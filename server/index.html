@@ -9,7 +9,7 @@
       <h1>Angular Chat</h1>
       <form name="chatform" style = "font-weight: bold">
         Username: <input placeholder = "type a username" ng-model="username">
-        Message: <input placeholder = "type your message" ng-model="msg" ui-keypress="POSTmessage()">
+        Message: <input class = "theMessage" placeholder = "type your message" ng-model="msg" ng-submit="POSTmessage()">
         <button type="button" class="btn btn-lg btn-primary" ng-click="POSTmessage()">Submit Message</button>
       </form>
       <blockquote>
@@ -33,7 +33,7 @@
         var msg = {message: $scope.msg, username: $scope.username};
         msg = JSON.stringify(msg);
         $http.post("/chat",msg);
-        $('input').val('')
+        $('.theMessage').val('')
       };
       setInterval(function(){
         $http.get("/chat").success(function(data,status){
