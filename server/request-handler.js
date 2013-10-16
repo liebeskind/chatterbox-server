@@ -1,5 +1,6 @@
 var url = require('url');
-var messages = [{username: 'johnny', message:'hello'}, {username: 'SG', message:'what up'}];
+var fs = require('fs');
+var messages = [];
 var html = require('./html-engine');
 var defaultCorsHeaders = {
   "access-control-allow-origin": "*",
@@ -20,14 +21,22 @@ var handleRequest = function(request, response) {
     response.end();
   }
 
-  if(request.method === 'GET'){//&& pathname === '/'){ //1/classes/chatterbox'){
+  if(request.method === 'GET' && pathname === '/chat'){ //1/classes/chatterbox'){
     response.writeHead(200,headers);
     //html.render(request,response,messages,headers);
     response.end(JSON.stringify(messages));
-  } else if(request.method === 'GET'){
+  } else{
+    console.log(__dirname);
+    fs.readFile('index.html', function(err, data) {
+      if (err) throw err;
+      headers['Content-Type'] = "html";
+      response.writeHead(200,headers);
+      response.end(data);
+    });
+  } /*else if(request.method === 'GET'){
     response.writeHead(404,headers);
     response.end();
-  }
+  }*/
 
   if(request.method === 'POST'){
     request.addListener('data',function(postDataChunk){

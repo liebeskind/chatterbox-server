@@ -1,14 +1,15 @@
 <!DOCTYPE HTML>
 <html ng-app>
   <head>
-    <title>Your Shopping Cart</title>
+    <title>Angular Chat</title>
+    <link rel="stylesheet" type="text/css" href= "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
   </head>
   <body ng-controller="chat">
-    <h1>Chatterbox</h1>
+    <h1>Angular Chat</h1>
     <form>
       Username: <input ng-model="username">
       Message: <input ng-model="msg">
-      <button ng-click="POSTmessage()">Submit Message</button>
+      <button type="button" class="btn btn-lg btn-primary" ng-click="POSTmessage()">Submit Message</button>
     </form>
     <div>
       <div ng-repeat="item in items">
@@ -23,13 +24,12 @@
       $scope.POSTmessage = function(){
         var msg = {message: $scope.msg, username: $scope.username};
         msg = JSON.stringify(msg);
-        $http.post("http://localhost:8080/",msg);
+        $http.post("/chat",msg);
       };
 
       setInterval(function(){
-        $http.get("http://localhost:8080/").success(function(data,status){
-          $scope.items = data
-          console.log(data);
+        $http.get("/chat").success(function(data,status){
+          $scope.items = data.reverse()
         });
       },1000);
     }
