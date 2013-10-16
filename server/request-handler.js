@@ -1,7 +1,6 @@
 var url = require('url');
 var fs = require('fs');
 var messages = [];
-var html = require('./html-engine');
 var defaultCorsHeaders = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
