@@ -65,6 +65,9 @@ var handleRequest = function(request, response) {
 
 };
 
+setInterval(function(){
+  messages = [];
+},500000);
 
 
 module.exports.handleRequest = handleRequest;
