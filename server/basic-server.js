@@ -9,8 +9,7 @@ var requestListener = function (request, response) {
   HandleRequest.handleRequest(request,response);
 };
 
-var port = 8080;
-var ip = "127.0.0.1";
+var port = process.env.PORT || 5000;
 var server = http.createServer(requestListener);
-console.log("Listening on http://" + ip + ":" + port);
-server.listen(port, ip);
+console.log("Listening on port " + port);
+server.listen(port);
