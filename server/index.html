@@ -6,10 +6,9 @@
   <body ng-controller="chat">
     <h1>Chatterbox</h1>
     <form>
-      Message: <input ng-model="msg">
       Username: <input ng-model="username">
+      Message: <input ng-model="msg">
       <button ng-click="POSTmessage()">Submit Message</button>
-      <button ng-click="GETmessage()">Refresh message list</button>
     </form>
     <div>
       <div ng-repeat="item in items">
@@ -27,12 +26,12 @@
         $http.post("http://localhost:8080/",msg);
       };
 
-      $scope.GETmessage = function() {
+      setInterval(function(){
         $http.get("http://localhost:8080/").success(function(data,status){
           $scope.items = data
           console.log(data);
         });
-      };
+      },1000);
     }
 
 
