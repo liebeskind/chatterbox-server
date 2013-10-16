@@ -20,9 +20,8 @@ var handleRequest = function(request, response) {
     response.end();
   }
 
-  if(request.method === 'GET' && pathname === '/chat'){ //1/classes/chatterbox'){
+  if(request.method === 'GET' && pathname === '/chat'){
     response.writeHead(200,headers);
-    //html.render(request,response,messages,headers);
     response.end(JSON.stringify(messages));
   } else{
     console.log(__dirname);
@@ -32,10 +31,7 @@ var handleRequest = function(request, response) {
       response.writeHead(200,headers);
       response.end(data);
     });
-  } /*else if(request.method === 'GET'){
-    response.writeHead(404,headers);
-    response.end();
-  }*/
+  }
 
   if(request.method === 'POST'){
     request.addListener('data',function(postDataChunk){
