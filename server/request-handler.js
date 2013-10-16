@@ -25,7 +25,7 @@ var handleRequest = function(request, response) {
     response.end(JSON.stringify(messages));
   } else{
     console.log(__dirname);
-    fs.readFile('/index.html', function(err, data) {
+    fs.readFile('/app/server/index.html', function(err, data) {
       if (err) throw err;
       headers['Content-Type'] = "html";
       response.writeHead(200,headers);
