@@ -8,9 +8,9 @@
     <div class="container" style="background-color: white; height: 100%">
       <h1>Angular Chat</h1>
       <form name="chatform" style = "font-weight: bold" ng-submit="POSTmessage()">
-        Username: <input placeholder = "type a username" ng-model="username">
-        Message: <input class = "theMessage" placeholder = "type your message" ng-model="msg">
-        <button type="button" class="btn btn-lg btn-primary">Submit Message</button>
+        Username: <input type="submit" placeholder = "type a username" ng-model="username">
+        Message: <input type="submit" class = "theMessage" placeholder = "type your message" ng-model="msg">
+        <button type="button" class="btn btn-lg btn-primary" ng-click="POSTmessage()">Submit Message</button>
       </form>
       <blockquote>
       <div>
